@@ -28,7 +28,7 @@ prettyGrid g = vsep $ interleave (pretty (replicate dashLength '-')) (map pretty
 convertTree :: GameTree -> Tree (Grid, Player)
 convertTree (GtNode p ts) = Node p $ map convertTree (catMaybes ts)
 
-prettyTree :: (Pretty a1, Pretty a2) => Tree ([[a2]], a1) -> String
+prettyTree :: Tree (Grid, Player) -> String
 prettyTree t = drawTree converted
     where converted = fmap (\(g,p) -> show $ vsep [pretty p, prettyGrid g]) t
 
