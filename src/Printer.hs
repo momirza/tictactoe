@@ -1,9 +1,17 @@
 import Data.Text.Prettyprint.Doc
 
 import Game
+import Utils
 
 instance Pretty Cell where
-    pretty = viaShow
+    pretty X = pretty 'x' 
+    pretty O = pretty 'o'
+    pretty B = pretty '.'
 
 
-prettyGrid g = vsep $ map pretty g
+prettyRow r = sep $ zipWith (<+>) ("" : repeat "|") (map pretty r)
+
+prettyGrid g = vsep $ interleave (pretty (replicate dashLength '-')) (map prettyRow g)
+    where 
+        gridSize   = length $ g !! 0
+        dashLength = (gridSize - 1) * 4 + 3
