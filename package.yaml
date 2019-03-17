@@ -20,8 +20,9 @@ description:         Please see the README on GitHub at <https://github.com/momi
 dependencies:
 - base >= 4.7 && < 5
 - random
+- prettyprinter
 
-default-extensions: MultiWayIf
+default-extensions: MultiWayIf,OverloadedStrings
 
 library:
   source-dirs: src
