@@ -8,8 +8,7 @@ instance Pretty Cell where
     pretty O = pretty 'o'
     pretty B = pretty '.'
 
-
-prettyRow r = sep $ zipWith (<+>) ("" : repeat "|") (map pretty r)
+prettyRow r = sep $ zipWith (<+>) (emptyDoc : repeat pipe) (map pretty r)
 
 prettyGrid g = vsep $ interleave (pretty (replicate dashLength '-')) (map prettyRow g)
     where 
