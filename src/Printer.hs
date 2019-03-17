@@ -16,8 +16,10 @@ instance Pretty Player where
     pretty PlayerX = pretty ("Player X" :: String)
     pretty PlayerO = pretty ("Player O" :: String)
 
+prettyRow :: Pretty a => [a] -> Doc ann
 prettyRow r = sep $ zipWith (<+>) (emptyDoc : repeat pipe) (map pretty r)
 
+prettyGrid :: Pretty a => [[a]] -> Doc ann
 prettyGrid g = vsep $ interleave (pretty (replicate dashLength '-')) (map prettyRow g)
     where 
         gridSize   = length $ g !! 0
@@ -26,6 +28,7 @@ prettyGrid g = vsep $ interleave (pretty (replicate dashLength '-')) (map pretty
 convertTree :: GameTree -> Tree (Grid, Player)
 convertTree (GtNode p ts) = Node p $ map convertTree (catMaybes ts)
 
+prettyTree :: (Pretty a1, Pretty a2) => Tree ([[a2]], a1) -> String
 prettyTree t = drawTree converted
     where converted = fmap (\(g,p) -> show $ vsep [pretty p, prettyGrid g]) t
 
