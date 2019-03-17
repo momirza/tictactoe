@@ -1,11 +1,11 @@
 module Printer where
 
+import Data.Tree
+import Data.Maybe
 import Data.Text.Prettyprint.Doc
 
 import Game hiding (Tree(..))
 import Utils
-import Data.Tree
-import Data.Maybe
 
 instance Pretty Cell where
     pretty X = pretty 'x' 
