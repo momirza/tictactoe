@@ -23,7 +23,7 @@ dependencies:
 - prettyprinter
 - containers
 
-default-extensions: MultiWayIf,OverloadedStrings
+default-extensions: MultiWayIf
 
 library:
   source-dirs: src

@@ -13,11 +13,11 @@ instance Pretty Cell where
     pretty B = pretty '.'
 
 instance Pretty Player where
-    pretty PlayerX = pretty ("Player X" :: String)
-    pretty PlayerO = pretty ("Player O" :: String)
+    pretty PlayerX = pretty "Player X" 
+    pretty PlayerO = pretty "Player O"
 
 prettyRow :: Pretty a => [a] -> Doc ann
-prettyRow r = sep $ zipWith (<+>) (emptyDoc : repeat pipe) (map pretty r)
+prettyRow r = hsep (emptyDoc : interleave pipe (map pretty r))
 
 prettyGrid :: Pretty a => [[a]] -> Doc ann
 prettyGrid g = vsep $ interleave (pretty (replicate dashLength '-')) (map prettyRow g)
@@ -37,4 +37,4 @@ prettyGameTree n = putStrLn . prettyTree . (prune n) . convertTree
 
 prune :: Int -> Tree a -> Tree a
 prune 0 (Node x _) = Node x []
-prune n (Node x ts) = Node x [prune (n-1) t | t <- ts]
+prune n (Node x ts) = Node x $ map (prune (n-1)) ts 
